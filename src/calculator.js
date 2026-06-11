@@ -117,6 +117,8 @@ async function main() {
   }
 }
 
+module.exports = { compute, isNumber, toNumbers };
+
 if (require.main === module) {
   main();
 }
