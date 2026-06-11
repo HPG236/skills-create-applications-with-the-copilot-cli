@@ -1,4 +1,4 @@
-const { compute } = require('../calculator');
+const { compute, modulo, power, squareRoot } = require('../calculator');
 
 describe('Calculator compute()', () => {
   test('addition: 2 + 3 => 5 (symbolic and named)', () => {
@@ -42,5 +42,41 @@ describe('Calculator compute()', () => {
   test('non-numeric operands still compute if numbers provided to compute()', () => {
     // compute expects numbers; this ensures behavior is numeric-only
     expect(compute('+', [1.5, 2.25])).toBeCloseTo(3.75);
+  });
+});
+
+describe('Extended operations: modulo, power, squareRoot', () => {
+  test('modulo: 5 % 2 => 1', () => {
+    expect(modulo(5, 2)).toBe(1);
+  });
+
+  test('modulo with negative numbers follows JS % behavior', () => {
+    expect(modulo(-5, 2)).toBe(-1);
+    expect(modulo(5, -2)).toBe(1);
+  });
+
+  test('modulo by zero throws', () => {
+    expect(() => modulo(5, 0)).toThrow(/Modulo by zero/);
+  });
+
+  test('power: 2^3 => 8 and supports negative exponents', () => {
+    expect(power(2, 3)).toBe(8);
+    expect(power(2, -1)).toBeCloseTo(0.5);
+  });
+
+  test('power supports fractional exponents', () => {
+    expect(power(9, 0.5)).toBeCloseTo(3);
+  });
+
+  test('squareRoot: sqrt(16) => 4', () => {
+    expect(squareRoot(16)).toBe(4);
+  });
+
+  test('squareRoot of non-perfect squares returns fractional result', () => {
+    expect(squareRoot(2)).toBeCloseTo(Math.sqrt(2));
+  });
+
+  test('squareRoot of negative number throws', () => {
+    expect(() => squareRoot(-4)).toThrow(/Cannot take square root of negative number/);
   });
 });

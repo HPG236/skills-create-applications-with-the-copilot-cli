@@ -117,7 +117,36 @@ async function main() {
   }
 }
 
-module.exports = { compute, isNumber, toNumbers };
+function modulo(a, b) {
+  // Validate inputs
+  if (typeof a !== 'number' || typeof b !== 'number') {
+    throw new Error('Operands must be numbers');
+  }
+  if (b === 0) {
+    throw new Error('Modulo by zero');
+  }
+  return a % b;
+}
+
+function power(base, exponent) {
+  if (typeof base !== 'number' || typeof exponent !== 'number') {
+    throw new Error('Operands must be numbers');
+  }
+  // Uses Math.pow to support fractional exponents
+  return Math.pow(base, exponent);
+}
+
+function squareRoot(n) {
+  if (typeof n !== 'number') {
+    throw new Error('Operand must be a number');
+  }
+  if (n < 0) {
+    throw new Error('Cannot take square root of negative number');
+  }
+  return Math.sqrt(n);
+}
+
+module.exports = { compute, isNumber, toNumbers, modulo, power, squareRoot };
 
 if (require.main === module) {
   main();
